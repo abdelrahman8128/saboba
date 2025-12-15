@@ -146,10 +146,10 @@ class _JobCardState extends State<JobCard> {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.person_outline,
                         size: 14,
-                        color: AppColors.textSecondary,
+                        color: Theme.of(context).textTheme.bodySmall?.color,
                       ),
                       const SizedBox(width: 4),
                       Expanded(
@@ -157,7 +157,9 @@ class _JobCardState extends State<JobCard> {
                           widget.job.postedBy,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
-                                color: AppColors.textSecondary,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodySmall?.color,
                                 fontSize: isMobile ? 12 : 14,
                               ),
                           overflow: TextOverflow.ellipsis,
@@ -227,7 +229,7 @@ class _JobCardState extends State<JobCard> {
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-        color: AppColors.textSecondary,
+        color: Theme.of(context).textTheme.bodySmall?.color,
         height: 1.4,
         fontSize: 13,
       ),
@@ -314,7 +316,7 @@ class _JobCardState extends State<JobCard> {
                 child: Text(
                   '5-10 proposals',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                     fontWeight: FontWeight.w500,
                     fontSize: isMobile ? 11 : 13,
                   ),

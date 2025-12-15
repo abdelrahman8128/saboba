@@ -324,7 +324,10 @@ class AppTheme {
       space: 1,
     ),
 
-    iconTheme: const IconThemeData(color: AppColors.darkTextSecondary, size: 24),
+    iconTheme: const IconThemeData(
+      color: AppColors.darkTextSecondary,
+      size: 24,
+    ),
 
     textTheme: const TextTheme(
       displayLarge: TextStyle(

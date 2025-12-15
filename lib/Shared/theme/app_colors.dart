@@ -51,4 +51,3 @@ class AppColors {
   static const Color online = Color(0xFF4CAF50);
   static const Color offline = Color(0xFF9E9E9E);
 }
-

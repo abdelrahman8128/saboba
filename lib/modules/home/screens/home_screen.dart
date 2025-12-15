@@ -82,10 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (child, animation) {
-                  return RotationTransition(
-                    turns: animation,
-                    child: child,
-                  );
+                  return RotationTransition(turns: animation, child: child);
                 },
                 child: Icon(
                   themeMode == ThemeMode.dark
@@ -247,7 +244,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? IconButton(
                               icon: Icon(
                                 Icons.clear_rounded,
-                                color: Theme.of(context).textTheme.bodyMedium?.color,
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.bodyMedium?.color,
                                 size: 20,
                               ),
                               onPressed: () {
