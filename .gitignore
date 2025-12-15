@@ -5,7 +5,13 @@
 *.swp
 .DS_Store
 .atom/
-.build/
+# Ignore all build outputs
+build/*
+
+# BUT allow Flutter web build
+!build/web/
+!build/web/**
+
 .buildlog/
 .history
 .svn/
