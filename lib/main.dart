@@ -10,7 +10,9 @@ import 'Modules/Home/screens/home_screen.dart';
 import 'Modules/JobDetails/job_details_bloc/job_details_bloc.dart';
 import 'Modules/JobDetails/screens/job_details_screen.dart';
 import 'Modules/Chat/chat_bloc/chat_bloc.dart';
+import 'modules/profile/screens/profile_screen.dart';
 import 'Models/job_model.dart';
+import 'Models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,12 @@ class MyApp extends StatelessWidget {
                   final job = settings.arguments as JobModel;
                   return MaterialPageRoute(
                     builder: (_) => JobDetailsScreen(job: job),
+                  );
+                case AppRoutes.profile:
+                  final user =
+                      settings.arguments as UserModel? ?? UserModel.mockUser;
+                  return MaterialPageRoute(
+                    builder: (_) => ProfileScreen(user: user),
                   );
                 default:
                   return MaterialPageRoute(builder: (_) => const HomeScreen());

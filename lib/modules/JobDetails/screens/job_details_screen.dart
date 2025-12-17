@@ -34,11 +34,9 @@ class JobDetailsScreen extends StatelessWidget {
     final isDesktop = ResponsiveHelper.isDesktop(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         title: Text('job_details'.tr()),
         elevation: 0,
-        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.share_outlined),
@@ -119,11 +117,13 @@ class JobDetailsScreen extends StatelessWidget {
                           margin: EdgeInsets.all(isMobile ? 16 : 24),
                           padding: EdgeInsets.all(isMobile ? 20 : 32),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Theme.of(
+                                  context,
+                                ).shadowColor.withOpacity(0.1),
                                 blurRadius: 20,
                                 offset: const Offset(0, 4),
                               ),
@@ -179,7 +179,9 @@ class JobDetailsScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: isMobile ? 24 : 32,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodyLarge?.color,
                                   height: 1.3,
                                 ),
                               ),
@@ -209,10 +211,12 @@ class JobDetailsScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           job.postedBy,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.w600,
                                             fontSize: 16,
-                                            color: AppColors.textPrimary,
+                                            color: Theme.of(
+                                              context,
+                                            ).textTheme.bodyLarge?.color,
                                           ),
                                         ),
                                         const SizedBox(height: 2),
@@ -220,8 +224,9 @@ class JobDetailsScreen extends StatelessWidget {
                                           'Posted ${_getTimeAgo(job.postedDate)}',
                                           style: TextStyle(
                                             fontSize: 13,
-                                            color: AppColors.textSecondary
-                                                .withOpacity(0.8),
+                                            color: Theme.of(
+                                              context,
+                                            ).textTheme.bodySmall?.color,
                                           ),
                                         ),
                                       ],
@@ -270,11 +275,13 @@ class JobDetailsScreen extends StatelessWidget {
                           ),
                           padding: EdgeInsets.all(isMobile ? 20 : 32),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Theme.of(
+                                  context,
+                                ).shadowColor.withOpacity(0.1),
                                 blurRadius: 20,
                                 offset: const Offset(0, 4),
                               ),
@@ -300,10 +307,12 @@ class JobDetailsScreen extends StatelessWidget {
                                   const SizedBox(width: 12),
                                   Text(
                                     'description'.tr(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary,
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge?.color,
                                     ),
                                   ),
                                 ],
@@ -311,9 +320,11 @@ class JobDetailsScreen extends StatelessWidget {
                               const SizedBox(height: 20),
                               Text(
                                 job.description,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
-                                  color: AppColors.textSecondary,
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.bodySmall?.color,
                                   height: 1.7,
                                   letterSpacing: 0.3,
                                 ),
@@ -331,11 +342,13 @@ class JobDetailsScreen extends StatelessWidget {
                           ),
                           padding: EdgeInsets.all(isMobile ? 20 : 32),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
+                                color: Theme.of(
+                                  context,
+                                ).shadowColor.withOpacity(0.1),
                                 blurRadius: 20,
                                 offset: const Offset(0, 4),
                               ),
@@ -361,10 +374,12 @@ class JobDetailsScreen extends StatelessWidget {
                                   const SizedBox(width: 12),
                                   Text(
                                     'requirements'.tr(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary,
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.bodyLarge?.color,
                                     ),
                                   ),
                                 ],
@@ -380,7 +395,9 @@ class JobDetailsScreen extends StatelessWidget {
                                   ),
                                   padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFFF8F9FA),
+                                    color: Theme.of(
+                                      context,
+                                    ).scaffoldBackgroundColor,
                                     borderRadius: BorderRadius.circular(12),
                                     border: Border.all(
                                       color: AppColors.primary.withOpacity(0.1),
@@ -409,9 +426,11 @@ class JobDetailsScreen extends StatelessWidget {
                                       Expanded(
                                         child: Text(
                                           entry.value,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 15,
-                                            color: AppColors.textPrimary,
+                                            color: Theme.of(
+                                              context,
+                                            ).textTheme.bodyLarge?.color,
                                             height: 1.5,
                                           ),
                                         ),
@@ -434,10 +453,10 @@ class JobDetailsScreen extends StatelessWidget {
             // Bottom action bar
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Theme.of(context).shadowColor.withOpacity(0.15),
                     blurRadius: 20,
                     offset: const Offset(0, -4),
                   ),

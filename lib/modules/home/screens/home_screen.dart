@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../Shared/theme/app_colors.dart';
 import '../../../Shared/theme/theme_cubit.dart';
+import '../../../Shared/routes/app_routes.dart';
 import '../../../Shared/utils/responsive_helper.dart';
 import '../../../Modules/Chat/screens/chat_screen.dart';
+import '../../../Models/user_model.dart';
 import '../home_bloc/home_bloc.dart';
 import '../items_builders/job_card.dart';
-import '../items_builders/filter_bottom_sheet.dart';
+import '../items_builders/filter_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -56,29 +58,47 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PreferredSizeWidget _buildAppBar(BuildContext context, bool isMobile) {
     return AppBar(
+      toolbarHeight: 100,
       title: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: const Icon(
-              Icons.work_outline,
-              color: Colors.white,
-              size: 24,
+          const SizedBox(width: 18),
+
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Image.asset(
+              'assets/icon/saboobaIcon.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.contain,
             ),
           ),
-          const SizedBox(width: 12),
-          Text('app_name'.tr()),
+          const SizedBox(width: 18),
+          Text(
+            'app_name'.tr(),
+            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
       actions: [
+        // Language switcher button
+        IconButton(
+          iconSize: 30,
+          icon: const Icon(Icons.language),
+          tooltip: 'Switch Language',
+          onPressed: () {
+            final currentLocale = context.locale;
+            if (currentLocale.languageCode == 'en') {
+              context.setLocale(const Locale('ar'));
+            } else {
+              context.setLocale(const Locale('en'));
+            }
+          },
+        ),
         // Theme toggle button
         BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, themeMode) {
             return IconButton(
+              iconSize: 30,
               icon: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 transitionBuilder: (child, animation) {
@@ -89,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Icons.light_mode
                       : Icons.dark_mode,
                   key: ValueKey(themeMode),
+                  size: 30,
                 ),
               ),
               tooltip: themeMode == ThemeMode.dark
@@ -100,11 +121,51 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+        // Profile avatar button
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.profile,
+                arguments: UserModel.mockUser,
+              );
+            },
+            child: Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [AppColors.primary, AppColors.primaryDark],
+                ),
+                border: Border.all(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  width: 2,
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  'KO',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         if (isMobile)
           IconButton(
+            iconSize: 30,
             icon: Stack(
               children: [
-                const Icon(Icons.chat_bubble_outline),
+                const Icon(Icons.chat_bubble_outline, size: 30),
                 Positioned(
                   right: 0,
                   top: 0,
@@ -115,8 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       shape: BoxShape.circle,
                     ),
                     constraints: const BoxConstraints(
-                      minWidth: 16,
-                      minHeight: 16,
+                      minWidth: 20,
+                      minHeight: 20,
                     ),
                     child: const Text(
                       '3',
@@ -192,14 +253,14 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           if (!isMobile) ...[
             Text(
-              'Find Your Perfect Job',
+              'find_perfect_job'.tr(),
               style: Theme.of(
                 context,
               ).textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              'Browse thousands of freelance opportunities',
+              'browse_opportunities'.tr(),
               style: Theme.of(
                 context,
               ).textTheme.bodyLarge?.copyWith(color: AppColors.textSecondary),
@@ -354,7 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state.selectedCategory != null)
                   _buildChip(
                     context,
-                    state.selectedCategory!,
+                    state.selectedCategory!.tr(),
                     Icons.category,
                     () {
                       context.read<HomeBloc>().add(
@@ -381,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 if (state.sortBy != null)
-                  _buildChip(context, state.sortBy!, Icons.sort, () {
+                  _buildChip(context, state.sortBy!.tr(), Icons.sort, () {
                     context.read<HomeBloc>().add(
                       ApplyFiltersEvent(
                         category: state.selectedCategory,
@@ -529,13 +590,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showFilterBottomSheet(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (bottomSheetContext) => BlocProvider.value(
+      builder: (dialogContext) => BlocProvider.value(
         value: context.read<HomeBloc>(),
-        child: const FilterBottomSheet(),
+        child: const FilterDialog(),
       ),
     );
   }

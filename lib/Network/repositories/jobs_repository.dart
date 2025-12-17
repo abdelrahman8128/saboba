@@ -47,16 +47,16 @@ class JobsRepositoryImpl implements JobsRepository {
       // Sort
       if (sortBy != null) {
         switch (sortBy) {
-          case 'Price: Low to High':
+          case 'price_low_high':
             filteredJobs.sort((a, b) => a.budget.compareTo(b.budget));
             break;
-          case 'Price: High to Low':
+          case 'price_high_low':
             filteredJobs.sort((a, b) => b.budget.compareTo(a.budget));
             break;
-          case 'Newest First':
+          case 'newest_first':
             filteredJobs.sort((a, b) => b.postedDate.compareTo(a.postedDate));
             break;
-          case 'Oldest First':
+          case 'oldest_first':
             filteredJobs.sort((a, b) => a.postedDate.compareTo(b.postedDate));
             break;
         }
